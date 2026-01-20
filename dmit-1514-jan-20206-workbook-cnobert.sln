@@ -7,13 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson02", "Lesson02\Lesson
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson03_Images", "Lesson03_Images\Lesson03_Images.csproj", "{340420C3-867C-4A7E-AA9A-3D2A516C914D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson04Animation", "Lesson04Animation\Lesson04Animation.csproj", "{B337171A-811F-4FE1-860E-BC2577BB1828}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson05KeyboardInput", "Lesson05KeyboardInput\Lesson05KeyboardInput.csproj", "{EC42C8D2-483B-46A2-8194-30A2724A20EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{46FD9C67-C6DD-40CE-A247-956E8893F0B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -24,5 +25,16 @@ Global
 		{340420C3-867C-4A7E-AA9A-3D2A516C914D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340420C3-867C-4A7E-AA9A-3D2A516C914D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340420C3-867C-4A7E-AA9A-3D2A516C914D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B337171A-811F-4FE1-860E-BC2577BB1828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B337171A-811F-4FE1-860E-BC2577BB1828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B337171A-811F-4FE1-860E-BC2577BB1828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B337171A-811F-4FE1-860E-BC2577BB1828}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC42C8D2-483B-46A2-8194-30A2724A20EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC42C8D2-483B-46A2-8194-30A2724A20EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC42C8D2-483B-46A2-8194-30A2724A20EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC42C8D2-483B-46A2-8194-30A2724A20EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
