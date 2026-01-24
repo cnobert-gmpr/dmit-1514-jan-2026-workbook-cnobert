@@ -43,8 +43,27 @@ public class KeyboardInputGame : Game
     {
         KeyboardState kbCurrentState = Keyboard.GetState();
 
-        _message = "";
+        #region partial code for moving something with key input
+        float xDirection = 0;
 
+        if(kbCurrentState.IsKeyDown(Keys.A))
+        {
+            xDirection = -1;
+        }
+        else if ((kbCurrentState.IsKeyDown(Keys.D)))
+        {
+            xDirection = 1;
+        }
+        else
+        {
+            xDirection = 0;
+        }
+        //movement formula goes here
+        #endregion
+
+
+        #region change text with keys
+        _message = "";
         #region arrow keys
         if(kbCurrentState.IsKeyDown(Keys.Down))
         {
@@ -99,6 +118,8 @@ public class KeyboardInputGame : Game
             _message += "++++++++++++++++++++++++++++++++++++++++++++++++++++++\n";
         }
         #endregion
+        #endregion
+        
         
         _kbPreviousState = kbCurrentState;
 
