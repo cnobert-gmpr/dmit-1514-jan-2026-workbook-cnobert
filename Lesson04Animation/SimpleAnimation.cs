@@ -25,7 +25,18 @@ public class SimpleAnimation
     /// Gets or sets whether the animation is paused.
     /// </summary>
     public bool Paused { get; set; } = false;
-
+    public float Width
+    {
+        get
+        {
+            float returnValue = 0;
+            if(_frames != null)
+            {
+                returnValue = _frames[0].Width;
+            }
+            return returnValue;
+        }
+    }
     /// <summary>
     /// Creates a new SimpleAnimation.
     /// </summary>

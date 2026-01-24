@@ -18,7 +18,7 @@ public class Lesson02 : Game
     private SpriteFont _font;
     private string _message = "Hello World";
     private Vector2 _position;
-    private float _xVelocity = 360, _yVelocity = 360;
+    private float _xVelocity = 36, _yVelocity = 360;
     public Lesson02() 
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -64,11 +64,24 @@ public class Lesson02 : Game
         //multiply the speed by the amount of time that has elapsed since the
         //last call to update
         _position.X += _xVelocity * dt;
-        if(_position.X < 0 || (_position.X + stringDimensions.X) > _WindowWidth)
+        
+        //if it's hit the left side, stop it
+        if(_position.X < 0)
         {
-            _xVelocity *= -1;
+            _position.X = 0;
+        } //if it has hit the right side, stop it
+        else if ((_position.X + stringDimensions.X) > _WindowWidth)
+        {
+            _position.X = _WindowWidth - stringDimensions.X;
         }
-        _position.Y += _yVelocity * dt;
+
+        // if(_position.X < 0 || (_position.X + stringDimensions.X) > _WindowWidth)
+        // {
+        //     _xVelocity *= -1;
+        // }
+
+
+        //_position.Y += _yVelocity * dt;
         if(_position.Y < 0 || (_position.Y + stringDimensions.Y) > _WindowHeight)
         {
             _yVelocity *= -1;

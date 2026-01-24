@@ -68,7 +68,7 @@ public class SpritesGame : Game
 
         _spriteBatch.Begin();
 
-        //_spriteBatch.Draw(_backgroundSprite, Vector2.Zero, null, Color.White);
+        _spriteBatch.Draw(_backgroundSprite, Vector2.Zero, null, Color.White);
 
         Vector2 origin = new Vector2(_shipSprite.Width / 2f, _shipSprite.Height / 2f);
 

@@ -44,6 +44,15 @@ public class AnimationGame : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
+        
+        // if(xDirection > 0)
+        // {
+        //     //draw the animation with SpriteEffects.None
+        // }
+        // else
+        // {
+        //     //draw the animation with SpriteEffects.FlipHorizontally
+        // }
         _walkingAnimation.Draw(_spriteBatch, Vector2.Zero, SpriteEffects.None);
         _spriteBatch.End();
 
