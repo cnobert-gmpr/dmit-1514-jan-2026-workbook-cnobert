@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -7,17 +8,21 @@ namespace Lesson06TicTacToe01;
 public class TicTacToe : Game
 {
     private const int _WindowWidth = 170, _WindowHeight = 170;
+    private const float _GameBoardLineWidth = 10;
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
     private Texture2D _backgroundImage, _xImage, _oImage;
 
-    public enum GameSpaceState
-    {
-        X,
-        O
-    }
+    public enum GameSpaceState { X, O, Empty}
     private GameSpaceState _nextTokenToBePlayed = GameSpaceState.X;
+
+    private GameSpaceState[,] _gameBoard =
+    {
+        { GameSpaceState.O, GameSpaceState.Empty, GameSpaceState.Empty },
+        { GameSpaceState.Empty, GameSpaceState.X, GameSpaceState.X },
+        { GameSpaceState.Empty, GameSpaceState.Empty, GameSpaceState.Empty },
+    };
 
     private MouseState _currentMouseState, _previousMouseState;
 
@@ -74,10 +79,41 @@ public class TicTacToe : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
+        #region 2D array practice
+        // int[,] grid = new int[3, 3];
+        // grid[0, 0] = 3;
+        // grid[1, 0] = 18;
+        // grid[2, 0] = 10342;
+
+        int[,] grid =
+        {
+            {1, 2, 3},
+            {4, 5, 6},
+            {7, 8, 9}
+        };    
+
+        Console.Clear();
+        //in a 2D array, the first index is the rows, the second is the columns
+        //so, to output the number "1", we use row index 1 and column index 0
+        for (int row = 0; row < grid.GetLength(0); row++)
+        {
+            for(int col = 0; col < grid.GetLength(1); col++)
+            {
+                // Console.Write(grid[row, col]);
+            }
+            //Console.Write("\n");  // Console.WriteLine();
+        }
+
+        //Exercise 01: print the array out in reverse order
+        //Exercise 02: transpose the array (print it out with rows and columns swapped)
+        #endregion
+
+
         _spriteBatch.Begin();
 
         _spriteBatch.Draw(_backgroundImage, Vector2.Zero, Color.White);
 
+        #region game token that follows mouse
         Vector2 adjustedMousePosition = new Vector2(
             _currentMouseState.Position.X - (_xImage.Width / 2),
             _currentMouseState.Position.Y - (_xImage.Height / 2)
@@ -91,9 +127,32 @@ public class TicTacToe : Game
         {
             _spriteBatch.Draw(_oImage, adjustedMousePosition, Color.White);
         }
-
+        #endregion
+       
+       DrawCurrentGameBoard();
+       
         _spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+    private void DrawCurrentGameBoard()
+    {
+        //Exercise 01: make it draw the "O" tokens as well
+        //Exercise 02: make it draw the tokens, centred on the game spaces by
+        //  taking into account the line widths (10 pixels each)
+        //  we have created private const float _GameBoardLineWidth = 10; for this.
+        for(int row = 0; row < _gameBoard.GetLength(0); row++)
+        {
+            for(int col = 0; col < _gameBoard.GetLength(1); col++)
+            {
+                if(_gameBoard[row, col] == GameSpaceState.X)
+                {
+                    float xPosition = col * _xImage.Width;
+                    float yPosition = row * _xImage.Height;
+                    Vector2 drawPosition = new Vector2(xPosition, yPosition);
+                    _spriteBatch.Draw(_xImage, drawPosition, Color.White);
+                }
+            }
+        }
     }
 }
