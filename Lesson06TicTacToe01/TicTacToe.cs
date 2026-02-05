@@ -66,8 +66,8 @@ public class TicTacToe : Game
     {
         _currentMouseState = Mouse.GetState();
         // code that occurs in ANY state is put outside of the switch statement
-        int x = _currentMouseState.X; //84
-        int y = _currentMouseState.Y; // 26
+        int x = _currentMouseState.X;
+        int y = _currentMouseState.Y;
         switch(_currentGameState)
         {
             case GameState.Initialize:
@@ -99,13 +99,16 @@ public class TicTacToe : Game
                 int column = x / _xImage.Width; // 84 / 50 = 1, remainder 34
 
                 // TODO: check that the space being clicked on is empty
-                // if so, move to MakePlayerMove
+                // if so, place the token, and go to EvaluatePlayerMove
                 _gameBoard[theRow, column] = _nextTokenToBePlayed;
+
+                // if they clicked on a non-empty game space
+                // change the state to WaitForPLayer Move
 
                 _currentGameState = GameState.EvaluatePlayerMove;
                 break;
             case GameState.EvaluatePlayerMove:
-                //TODO: was there a winner? If so, move to GameOver state.
+                //TODO: was there a winner or a tie? If so, move to GameOver state.
                 // otherwise change next token to be played and go back to the WaitForPlayerMove state
                 if(_nextTokenToBePlayed == GameSpaceState.X)
                 {
@@ -118,6 +121,8 @@ public class TicTacToe : Game
                 _currentGameState = GameState.WaitForPlayerMove;
                 break;
             case GameState.GameOver:
+            // Display a game over message. You may hide the game board background
+            // wait for a click to play again, and then move into Initialize state
                 break;
         }
 
