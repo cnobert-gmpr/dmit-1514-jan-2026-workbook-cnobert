@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson05KeyboardInput", "Le
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson06TicTacToe01", "Lesson06TicTacToe01\Lesson06TicTacToe01.csproj", "{BA35D56F-E1BD-4C6B-989F-A4FA21931431}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson07Pong", "Lesson07Pong\Lesson07Pong.csproj", "{12F5FAC9-E832-4282-B5A0-317C2FE2375E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{BA35D56F-E1BD-4C6B-989F-A4FA21931431}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA35D56F-E1BD-4C6B-989F-A4FA21931431}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA35D56F-E1BD-4C6B-989F-A4FA21931431}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12F5FAC9-E832-4282-B5A0-317C2FE2375E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12F5FAC9-E832-4282-B5A0-317C2FE2375E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12F5FAC9-E832-4282-B5A0-317C2FE2375E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12F5FAC9-E832-4282-B5A0-317C2FE2375E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
