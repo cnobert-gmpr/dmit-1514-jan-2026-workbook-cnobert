@@ -12,12 +12,11 @@ public class Pong : Game
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    private Texture2D _backgroundTexture, _ballTexture, _paddleTexture;
+    private Texture2D _backgroundTexture, _paddleTexture;
 
     private Ball _ball;
 
-    private Vector2 _paddlePosition, _paddleDirection, _paddleDimensions;
-    private float _paddleSpeed;
+    private Paddle _paddleRight;
 
     private Vector2 _leftPaddlePosition, _leftPaddleDirection, _leftPaddleDimensions;
     private float _leftPaddleSpeed;
@@ -43,9 +42,8 @@ public class Pong : Game
         _ball = new Ball();
         _ball.Initialize(new Vector2(150, 195), 60, new Point(21, 21), new Vector2(-1, -1), PlayAreaBoundingBox);
 
-        _paddlePosition = new Vector2(690, 198);
-        _paddleSpeed = 240;
-        _paddleDimensions = new Vector2(8, 124);
+        _paddleRight = new Paddle();
+        _paddleRight.Initialize(new Vector2(690, 198), 240, new Point(8, 124), PlayAreaBoundingBox);
 
         _leftPaddlePosition = new Vector2(54, 198);
         _leftPaddleSpeed = 240;
@@ -60,6 +58,8 @@ public class Pong : Game
         _backgroundTexture = Content.Load<Texture2D>("Court");
 
         _ball.LoadContent(Content);
+        
+        _paddleRight.LoadContent(Content);
 
         _paddleTexture = Content.Load<Texture2D>("Paddle");
     }
@@ -75,25 +75,19 @@ public class Pong : Game
         #region right paddle
         if(kbState.IsKeyDown(Keys.Up))
         {
-            _paddleDirection = new Vector2(0, -1);
+            //tell the paddle that its direction is upwards
+            _paddleRight.Direction = new Vector2(0, -1);
         }
         else if(kbState.IsKeyDown(Keys.Down))
         {
-            _paddleDirection = new Vector2(0, 1);
+            _paddleRight.Direction = new Vector2(0, 1);
         }
         else
         {
-            _paddleDirection = Vector2.Zero;
+            _paddleRight.Direction = Vector2.Zero;
         }
-        _paddlePosition += _paddleDirection * _paddleSpeed * dt;
-        if(_paddlePosition.Y <= PlayAreaBoundingBox.Top)
-        {
-            _paddlePosition.Y = PlayAreaBoundingBox.Top;
-        }
-        else if(_paddlePosition.Y   + _paddleDimensions.Y >= PlayAreaBoundingBox.Bottom)
-        {
-            _paddlePosition.Y = PlayAreaBoundingBox.Bottom - _paddleDimensions.Y;
-        }
+        _paddleRight.Update(gameTime);
+        
         #endregion
 
         #region left paddle
@@ -132,10 +126,7 @@ public class Pong : Game
 
         _spriteBatch.Draw(_backgroundTexture, new Rectangle(0, 0, _WindowWidth, _WindowHeight), Color.White);
 
-        
-        
-        Rectangle paddleRectangle = new Rectangle((int) _paddlePosition.X, (int) _paddlePosition.Y, (int) _paddleDimensions.X, (int) _paddleDimensions.Y);
-        _spriteBatch.Draw(_paddleTexture, paddleRectangle, Color.DarkOrange);
+        _paddleRight.Draw(_spriteBatch);
 
         Rectangle leftPaddleRectangle =
             new Rectangle((int)_leftPaddlePosition.X, (int)_leftPaddlePosition.Y, (int)_leftPaddleDimensions.X, (int)_leftPaddleDimensions.Y);

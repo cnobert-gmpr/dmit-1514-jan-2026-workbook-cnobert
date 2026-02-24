@@ -1,19 +1,16 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 
 namespace Lesson07Pong;
 
 public class Ball
 {
-    // Point is like Vector2, but X and Y are integers instead of floats
     private Point _dimensions;
     private Vector2 _position, _direction;
     private float _speed;
     private Texture2D _texture;
     private Rectangle _playAreaBoundingBox;
-
 
     internal void Initialize(Vector2 position, float speed, Point dimensions, Vector2 direction, Rectangle playAreaBoundingBox)
     {
