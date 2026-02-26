@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,6 +12,16 @@ public class Paddle
     private float _speed;
     private Texture2D _texture;
     private Rectangle _playAreaBoundingBox;
+
+    //"derived, read-only property"
+    internal Rectangle BoundingBox
+    {
+        //get => new Rectangle(_position.ToPoint(), _dimensions);
+        get
+        {
+            return new Rectangle(_position.ToPoint(), _dimensions);
+        }
+    }
 
     //"write only" property
     internal Vector2 Direction

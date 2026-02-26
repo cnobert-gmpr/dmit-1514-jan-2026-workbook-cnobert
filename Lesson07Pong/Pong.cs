@@ -62,35 +62,24 @@ public class Pong : Game
         #region input
         KeyboardState kbState = Keyboard.GetState();
         if(kbState.IsKeyDown(Keys.Up))
-        {   
-            //tell the paddle that its direction is upwards
             _paddleRight.Direction = new Vector2(0, -1);
-        }
         else if(kbState.IsKeyDown(Keys.Down))
-        {
             _paddleRight.Direction = new Vector2(0, 1);
-        }
         else
-        {
             _paddleRight.Direction = Vector2.Zero;
-        }
         if(kbState.IsKeyDown(Keys.W))
-        {
             _paddleLeft.Direction = new Vector2(0, -1);
-        }
         else if(kbState.IsKeyDown(Keys.S))
-        {
             _paddleLeft.Direction = new Vector2(0, 1);
-        }
         else
-        {
             _paddleLeft.Direction = Vector2.Zero;
-        }
         #endregion
         
         _ball.Update(gameTime);
         _paddleRight.Update(gameTime);
         _paddleLeft.Update(gameTime);
+
+        _ball.ProcessCollision(_paddleRight.BoundingBox);
 
         base.Update(gameTime);
     }
