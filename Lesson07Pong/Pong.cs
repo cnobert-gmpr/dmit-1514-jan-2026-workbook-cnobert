@@ -79,7 +79,21 @@ public class Pong : Game
         _paddleRight.Update(gameTime);
         _paddleLeft.Update(gameTime);
 
-        _ball.ProcessCollision(_paddleRight.BoundingBox);
+        // Paddle hit colour change [3 pts] - When the ball collides with a paddle, 
+        // the paddle changes to a different colour for 500 milliseconds, 
+        // then returns to its original colour.
+
+        if(_ball.ProcessCollision(_paddleRight.BoundingBox))
+        {
+            // Flash() sets a timer for 0.5 seconds, and during that 
+            // time the paddle draws in a different colour
+            _paddleRight.Flash(); 
+        }
+
+
+
+        _ball.ProcessCollision(_paddleLeft.BoundingBox);
+
 
         base.Update(gameTime);
     }
