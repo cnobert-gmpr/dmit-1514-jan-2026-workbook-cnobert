@@ -1,4 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,6 +11,7 @@ public class Paddle
     private float _speed;
     private Texture2D _texture;
     private Rectangle _playAreaBoundingBox;
+    private Color _colour;
 
     //"derived, read-only property"
     internal Rectangle BoundingBox
@@ -33,12 +33,13 @@ public class Paddle
         }
     }
 
-    internal void Initialize(Vector2 position, float speed, Point dimensions, Rectangle playAreaBoundingBox)
+    internal void Initialize(Vector2 position, float speed, Point dimensions, Rectangle playAreaBoundingBox, Color colour)
     {
         _position = position;
         _speed = speed;
         _dimensions = dimensions;
         _playAreaBoundingBox = playAreaBoundingBox;
+        _colour = colour;
     }
 
     internal void LoadContent(ContentManager content)
@@ -65,6 +66,6 @@ public class Paddle
     internal void Draw(SpriteBatch _spriteBatch)
     {
         Rectangle paddleRectangle = new Rectangle(_position.ToPoint(), _dimensions);
-        _spriteBatch.Draw(_texture, paddleRectangle, Color.LightYellow);
+        _spriteBatch.Draw(_texture, paddleRectangle, _colour);
     }
 }

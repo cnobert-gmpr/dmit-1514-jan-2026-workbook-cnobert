@@ -10,7 +10,7 @@ public class Ball
 
     private Point _dimensions;
     private Vector2 _position, _direction;
-    private float _speed,  ;
+    private float _speed,  _collisionTimer;
     private Texture2D _texture;
     private Rectangle _playAreaBoundingBox;
 
@@ -60,7 +60,7 @@ public class Ball
         _spriteBatch.Draw(_texture, ballRectangle, Color.LightYellow);
     }
 
-    internal bool ProcessCollision(Rectangle otherBoundingBox)
+    internal void ProcessCollision(Rectangle otherBoundingBox)
     {
         //return true if we collide with otherBoundingBox, and false otherwise
         if(_collisionTimer >= _CollisionTimerInterval && BoundingBox.Intersects(otherBoundingBox))
