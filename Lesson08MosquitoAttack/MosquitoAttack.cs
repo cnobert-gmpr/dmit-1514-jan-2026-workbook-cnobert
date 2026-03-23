@@ -20,8 +20,8 @@ public class MosquitoAttack : Game
     private SpriteFont _font;
     private string _message;
 
-    private enum GameState { Playing, Paused, Over}
-    private GameState _gameState = GameState.Playing;
+    private enum GameState { Menu, Level01, Paused, Over}
+    private GameState _gameState = GameState.Menu;
 
     Cannon _cannon;
 
@@ -89,7 +89,11 @@ public class MosquitoAttack : Game
 
         switch(_gameState)
         {
-            case GameState.Playing:
+            case GameState.Menu:
+                //display a welcome message and instructions
+                //change state when the proper button is pressed
+                break;
+            case GameState.Level01:
                 if(_kbCurrentState.IsKeyDown(Keys.A))
                     _cannon.Direction = new Vector2(-1, 0);
                 else if(_kbCurrentState.IsKeyDown(Keys.D))
@@ -99,6 +103,11 @@ public class MosquitoAttack : Game
                 
                 _cannon.Update(gameTime);
                 
+                // detect "r" key press? reload the cannon
+
+                // all mosquitoes dead?
+                // count how many are alive in this loop
+                // also check if cannon is dead and change state appropriately
                 foreach(Mosquito m in _mosquitoes)
                 {
                     m.Update(gameTime);
@@ -122,7 +131,7 @@ public class MosquitoAttack : Game
                 break;
             case GameState.Paused:
                 if(Pressed(Keys.P))
-                    _gameState = GameState.Playing;
+                    _gameState = GameState.Level01;
                 break;
             case GameState.Over:
                 break;
@@ -139,11 +148,14 @@ public class MosquitoAttack : Game
 
         switch(_gameState)
         {
-            case GameState.Playing:
+            case GameState.Level01:
                 _spriteBatch.Draw(_background, Vector2.Zero, Color.White);
                 _cannon.Draw(_spriteBatch);
                 foreach(Mosquito m in _mosquitoes)
                     m.Draw(_spriteBatch);
+
+                // ask Cannon if it needs to be reloaded
+                // if so display "reload" message to the screen
                 break;
             case GameState.Paused:
                 _spriteBatch.Draw(_background, Vector2.Zero, Color.Silver);
