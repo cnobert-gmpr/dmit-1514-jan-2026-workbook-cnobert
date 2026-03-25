@@ -10,7 +10,7 @@ namespace Lesson08MosquitoAttack;
 public class MosquitoAttack : Game
 {
     private const int _WindowWidth = 550, _WindowHeight = 400;
-    private const int _NumMosquitoes = 10;
+    private const int _NumMosquitoes = 100;
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -21,7 +21,7 @@ public class MosquitoAttack : Game
     private string _message;
 
     private enum GameState { Menu, Level01, Paused, Over}
-    private GameState _gameState = GameState.Menu;
+    private GameState _gameState = GameState.Level01;
 
     Cannon _cannon;
 

@@ -1,5 +1,4 @@
 
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,19 +14,16 @@ public class CannonBall
 
     private Rectangle _gameBoundingBox;
 
-    private List<Vector2> _trailPositions;
-    private float _trailTimer;
-    private const float _TrailSpawnInterval = 0.03f;
-    private const int _MaxTrailPositions = 12;
-
     private enum State { Flying, NotFlying}
     private State _state = State.NotFlying;
+
+    private Explosion _explosion;
+    private Trail _trail;
 
     internal Rectangle BoundingBox
     {
         get => new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
     }
-
     internal bool Launchable
     {
         get => _state == State.NotFlying;
@@ -40,12 +36,15 @@ public class CannonBall
         _speed = speed;
         _gameBoundingBox = gameBoundingBox;
 
-        _trailPositions = new List<Vector2>();
-        _trailTimer = 0;
+        _explosion = new Explosion();
+        _trail = new Trail();
+        _trail.Initialize();
     }
     internal void LoadContent(ContentManager content)
     {
         _texture = content.Load<Texture2D>("CannonBall");
+        _explosion.LoadContent(content);
+        _trail.LoadContent(content);
     }
     internal void Update(GameTime gameTime)
     {
@@ -56,26 +55,18 @@ public class CannonBall
             case State.Flying:
                 _position += _direction * _speed * dt;
 
-                _trailTimer += dt;
-                if(_trailTimer >= _TrailSpawnInterval)
-                {
-                    _trailTimer = 0;
-                    _trailPositions.Insert(0, _position);
-                    if(_trailPositions.Count > _MaxTrailPositions)
-                    {
-                        _trailPositions.RemoveAt(_trailPositions.Count - 1);
-                    }
-                }
+                _trail.Update(gameTime, _position);
 
                 if(!BoundingBox.Intersects(_gameBoundingBox))
                 {
                     _state = State.NotFlying;
-                    _trailPositions.Clear();
+                    _trail.Clear();
                 }
                 break;
             case State.NotFlying:
                 break;
         }
+        _explosion.Update(gameTime);
     }
     internal void Draw(SpriteBatch spriteBatch)
     {
@@ -83,33 +74,12 @@ public class CannonBall
         {
             case State.Flying:
                 spriteBatch.Draw(_texture, _position, Color.White);
-                DrawTrail(spriteBatch);
+                _trail.Draw(spriteBatch);
                 break;
             case State.NotFlying:
                 break;
         }
-    }
-
-    private void DrawTrail(SpriteBatch spriteBatch)
-    {
-        for(int i = 0; i < _trailPositions.Count; i++)
-        {
-            // gets closer and closer to the number 1 as i increases
-            float alpha = 1f - ((float)(i + 1) / (_trailPositions.Count + 1));
-            // gets smaller as i increase
-            float scale = 1f - (i * 0.1f);
-
-            if(scale < 0.2f)
-            {
-                scale = 0.2f;
-            }
-            Vector2 drawPosition = _trailPositions[i];
-            Vector2 origin = new Vector2(_texture.Width / 2, _texture.Height / 2);
-            Vector2 centeredPosition = drawPosition + new Vector2(_texture.Width / 2f, _texture.Height / 2f);
-            spriteBatch.Draw
-                (_texture, centeredPosition, null, 
-                Color.Gray * (alpha * 0.5f), 0f, origin, scale, SpriteEffects.None, 0f);
-        }
+        _explosion.Draw(spriteBatch);
     }
 
     internal void Launch(Vector2 position, Vector2 direction)
@@ -131,6 +101,10 @@ public class CannonBall
             // that was passed down
             returnValue = true;
             _state = State.NotFlying;
+            _trail.Clear();
+
+            Vector2 explosionCentre = BoundingBox.Center.ToVector2();; //_position + new Vector2(_texture.Width / 2, _texture.Height / 2);
+            _explosion.Start(explosionCentre);
         }
         return returnValue;
     }
