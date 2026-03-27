@@ -19,7 +19,6 @@ public class Trail
         _trailPositions = new List<Vector2>();
         _trailTimer = 0;
     }
-
     internal void Update(GameTime gameTime, Vector2 position)
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -60,7 +59,6 @@ public class Trail
                 Color.Gray * (alpha * 0.5f), 0f, origin, scale, SpriteEffects.None, 0f);
         }
     }
-
     internal void Clear()
     {
         _trailPositions.Clear();
