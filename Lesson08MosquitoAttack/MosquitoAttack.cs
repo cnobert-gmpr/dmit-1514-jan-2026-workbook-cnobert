@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,7 +11,7 @@ namespace Lesson08MosquitoAttack;
 public class MosquitoAttack : Game
 {
     private const int _WindowWidth = 550, _WindowHeight = 400;
-    private const int _NumMosquitoes = 100;
+    private const int _NumMosquitoes = 1;
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -23,6 +24,11 @@ public class MosquitoAttack : Game
     private enum GameState { Menu, Level01, Paused, Over}
     private GameState _gameState = GameState.Level01;
 
+    #region hit effects
+    private float _timeScale = 1, _sloMoTimer = 0;
+    private float _shakeTimer = 0, _shakeIntensity = 0;
+    Random _random = new Random();
+    #endregion
     Cannon _cannon;
 
     Mosquito[] _mosquitoes;
@@ -87,6 +93,10 @@ public class MosquitoAttack : Game
     {
         _kbCurrentState = Keyboard.GetState();
 
+        float realDt = (float) gameTime.ElapsedGameTime.TotalSeconds;
+        UpdateImpactEffects(realDt);
+        GameTime scaledGameTime = new GameTime(gameTime.TotalGameTime, TimeSpan.FromSeconds(realDt * _timeScale));
+
         switch(_gameState)
         {
             case GameState.Menu:
@@ -101,7 +111,7 @@ public class MosquitoAttack : Game
                 else
                     _cannon.Direction = new Vector2(0, 0);
                 
-                _cannon.Update(gameTime);
+                _cannon.Update(scaledGameTime);
                 
                 // detect "r" key press? reload the cannon
 
@@ -110,10 +120,11 @@ public class MosquitoAttack : Game
                 // also check if cannon is dead and change state appropriately
                 foreach(Mosquito m in _mosquitoes)
                 {
-                    m.Update(gameTime);
+                    m.Update(scaledGameTime);
                     if(m.Alive && _cannon.ProcessCollision(m.BoundingBox))
                     {
                         m.Die();
+                        StartHitEffects();
                     }
                 }
 
@@ -144,7 +155,8 @@ public class MosquitoAttack : Game
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
-        _spriteBatch.Begin();
+        Vector2 shakeOffset = GetShakeOffset();
+        _spriteBatch.Begin(transformMatrix: Matrix.CreateTranslation(new Vector3(shakeOffset, 0)));
 
         switch(_gameState)
         {
@@ -171,6 +183,53 @@ public class MosquitoAttack : Game
         _spriteBatch.End();
 
         base.Draw(gameTime);
+    }
+
+    private Vector2 GetShakeOffset()
+    {
+        Vector2 shakeOffset = Vector2.Zero;
+
+        if(_shakeTimer > 0)
+        {
+            shakeOffset = new Vector2
+            (
+                ((float)_random.NextDouble() - 0.5f) * _shakeIntensity,
+                ((float)_random.NextDouble() - 0.5f) * _shakeIntensity
+            );
+        }
+
+        return shakeOffset;
+    }
+
+    private void StartHitEffects()
+    {
+        _timeScale = 0.2f;
+        _sloMoTimer = .2f;
+
+        _shakeTimer = 0.2f;
+        _shakeIntensity = 6;
+    }
+    private void UpdateImpactEffects(float realDt)
+    {
+        if(_sloMoTimer > 0)
+        {
+            _sloMoTimer -= realDt;
+            if(_sloMoTimer <= 0)
+            {
+                _sloMoTimer = 0;
+                _timeScale = 1f;
+            }
+        }
+
+        if(_shakeTimer > 0)
+        {
+            _shakeTimer -= realDt;
+            if(_shakeTimer <= 0)
+            {
+                _shakeTimer = 0;
+                _shakeIntensity = 0;
+            }
+        }
     }
 
     private bool Pressed(Keys key)
