@@ -1,0 +1,75 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Lesson02",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson02",
+      "program": "${workspaceFolder}/Lesson02/bin/Debug/net8.0/Lesson02.dll",
+      "cwd": "${workspaceFolder}/Lesson02",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch Lesson03_Images",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson03_Images",
+      "program": "${workspaceFolder}/Lesson03_Images/bin/Debug/net8.0/Lesson03_Images.dll",
+      "cwd": "${workspaceFolder}/Lesson03_Images",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch Lesson04Animation",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson04Animation",
+      "program": "${workspaceFolder}/Lesson04Animation/bin/Debug/net8.0/Lesson04Animation.dll",
+      "cwd": "${workspaceFolder}/Lesson04Animation",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch Lesson05KeyboardInput",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson05KeyboardInput",
+      "program": "${workspaceFolder}/Lesson05KeyboardInput/bin/Debug/net8.0/Lesson05KeyboardInput.dll",
+      "cwd": "${workspaceFolder}/Lesson05KeyboardInput",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch Lesson06TicTacToe01",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson06TicTacToe01",
+      "program": "${workspaceFolder}/Lesson06TicTacToe01/bin/Debug/net8.0/Lesson06TicTacToe01.dll",
+      "cwd": "${workspaceFolder}/Lesson06TicTacToe01",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch Lesson07Pong",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson07Pong",
+      "program": "${workspaceFolder}/Lesson07Pong/bin/Debug/net8.0/Lesson07Pong.dll",
+      "cwd": "${workspaceFolder}/Lesson07Pong",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    },
+    {
+      "name": "Launch Lesson08MosquitoAttack",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson08MosquitoAttack",
+      "program": "${workspaceFolder}/Lesson08MosquitoAttack/bin/Debug/net8.0/Lesson08MosquitoAttack.dll",
+      "cwd": "${workspaceFolder}/Lesson08MosquitoAttack",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}

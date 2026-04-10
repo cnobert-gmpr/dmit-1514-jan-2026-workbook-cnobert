@@ -1,0 +1,4 @@
+{
+  "dotnet.defaultSolution": "Lesson08MosquitoAttack.sln",
+  "omnisharp.enableMsBuildLoadProjectsOnDemand": false
+}

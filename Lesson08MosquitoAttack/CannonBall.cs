@@ -5,48 +5,32 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Lesson08MosquitoAttack;
 
-public class CannonBall
+public class CannonBall : Projectile
 {
     private Texture2D _texture;
-    private Vector2 _position;
-    private Vector2 _direction;
-    private float _speed;
-
-    private Rectangle _gameBoundingBox;
-
-    private enum State { Flying, NotFlying}
-    private State _state = State.NotFlying;
 
     private Explosion _explosion;
     private Trail _trail;
 
-    internal Rectangle BoundingBox
+    //"override" means "I'm hiding the parent method"
+    internal override void Initialize(float speed, Rectangle gameBoundingBox)
     {
-        get => new Rectangle((int)_position.X, (int)_position.Y, _texture.Width, _texture.Height);
-    }
-    internal bool Launchable
-    {
-        get => _state == State.NotFlying;
-    }
+        base.Initialize(speed, gameBoundingBox);
 
-    internal void Initialize(float speed, Rectangle gameBoundingBox)
-    {
-        _position = new Vector2(50, 300);
-        _direction = new Vector2(0, -1);
-        _speed = speed;
-        _gameBoundingBox = gameBoundingBox;
-
+        _dimensions = new Point(4, 4);
         _explosion = new Explosion();
         _trail = new Trail();
         _trail.Initialize();
     }
-    internal void LoadContent(ContentManager content)
+    
+    // a method that is labelled as "abstract" in the parent must be explicitly overridden
+    internal override void LoadContent(ContentManager content)
     {
         _texture = content.Load<Texture2D>("CannonBall");
         _explosion.LoadContent(content);
         _trail.LoadContent(content);
     }
-    internal void Update(GameTime gameTime)
+    internal override void Update(GameTime gameTime)
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -68,7 +52,7 @@ public class CannonBall
         }
         _explosion.Update(gameTime);
     }
-    internal void Draw(SpriteBatch spriteBatch)
+    internal override void Draw(SpriteBatch spriteBatch)
     {
         switch(_state)
         {
@@ -82,30 +66,15 @@ public class CannonBall
         _explosion.Draw(spriteBatch);
     }
 
-    internal void Launch(Vector2 position, Vector2 direction)
+    internal override bool ProcessCollision(Rectangle boundingBox)
     {
-        if(_state == State.NotFlying)
+        if(base.ProcessCollision(boundingBox))
         {
-            _position = position;
-            _direction = direction;
-            _state = State.Flying;
-        }
-    }
-
-    internal bool ProcessCollision(Rectangle boundingBox)
-    {
-        bool returnValue = false;
-        if(_state == State.Flying && BoundingBox.Intersects(boundingBox))
-        {
-            // this cannonBall has just hit the bounding box 
-            // that was passed down
-            returnValue = true;
-            _state = State.NotFlying;
             _trail.Clear();
-
             Vector2 explosionCentre = BoundingBox.Center.ToVector2();; //_position + new Vector2(_texture.Width / 2, _texture.Height / 2);
             _explosion.Start(explosionCentre);
+            return true;
         }
-        return returnValue;
+        return false;
     }
 }

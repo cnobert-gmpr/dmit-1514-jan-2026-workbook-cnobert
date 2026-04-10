@@ -1,0 +1,61 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build Lesson02",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson02/Lesson02.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Lesson03_Images",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson03_Images/Lesson03_Images.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Lesson04Animation",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson04Animation/Lesson04Animation.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Lesson05KeyboardInput",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson05KeyboardInput/Lesson05KeyboardInput.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Lesson06TicTacToe01",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson06TicTacToe01/Lesson06TicTacToe01.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Lesson07Pong",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson07Pong/Lesson07Pong.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build Lesson08MosquitoAttack",
+      "type": "process",
+      "command": "dotnet",
+      "args": ["build", "${workspaceFolder}/Lesson08MosquitoAttack/Lesson08MosquitoAttack.csproj"],
+      "group": "build",
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

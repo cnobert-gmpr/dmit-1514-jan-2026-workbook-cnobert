@@ -4,44 +4,24 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Lesson08MosquitoAttack;
 
-public class FireBall
+public class FireBall : Projectile
 {
     private SimpleAnimation _animation;
 
-    private Vector2 _position, _direction;
-    private Point _dimensions;
-    private float _speed;
-
-    private Rectangle _gameBoundingBox;
-
-    private enum State { Flying, NotFlying}
-    private State _state = State.NotFlying;
-
-    internal Rectangle BoundingBox
+    internal override void Initialize(float speed, Rectangle gameBoundingBox)
     {
-        get => new Rectangle((int)_position.X, (int)_position.Y, _dimensions.X, _dimensions.Y);
-    }
-    internal bool Launchable
-    {
-        get => _state == State.NotFlying;
-    }
+        base.Initialize(speed, gameBoundingBox);
 
-    internal void Initialize(float speed, Rectangle gameBoundingBox)
-    {
-        _position = Vector2.Zero;
-        _direction = Vector2.Zero;
-        _speed = speed;
-        _gameBoundingBox = gameBoundingBox;
         _dimensions = new Point(5, 17);
     }
 
-    internal void LoadContent(ContentManager content)
+    internal override void LoadContent(ContentManager content)
     {
         Texture2D texture = content.Load<Texture2D>("FireBall");
         _animation = new SimpleAnimation(texture, _dimensions.X, _dimensions.Y, 8, 8);
     }
 
-    internal void Update(GameTime gameTime)
+    internal override void Update(GameTime gameTime)
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
@@ -60,7 +40,7 @@ public class FireBall
         }
     }
 
-    internal void Draw(SpriteBatch spriteBatch)
+    internal override void Draw(SpriteBatch spriteBatch)
     {
         switch(_state)
         {
@@ -70,27 +50,6 @@ public class FireBall
             case State.NotFlying:
                 break;
         }
-    }
-
-    internal void Launch(Vector2 position, Vector2 direction)
-    {
-        if(_state == State.NotFlying)
-        {
-            _position = position;
-            _direction = direction;
-            _state = State.Flying;
-        }
-    }
-
-    internal bool ProcessCollision(Rectangle boundingBox)
-    {
-        bool returnValue = false;
-        if(_state == State.Flying && BoundingBox.Intersects(boundingBox))
-        {
-            returnValue = true;
-            _state = State.NotFlying;
-        }
-        return returnValue;
     }
 
 }
