@@ -11,7 +11,7 @@ namespace Lesson08MosquitoAttack;
 public class MosquitoAttack : Game
 {
     private const int _WindowWidth = 550, _WindowHeight = 400;
-    private const int _NumMosquitoes = 1;
+    private const int _NumMosquitoes = 10;
 
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
@@ -124,6 +124,11 @@ public class MosquitoAttack : Game
                     if(m.Alive && _cannon.ProcessCollision(m.BoundingBox))
                     {
                         m.Die();
+                        StartHitEffects();
+                    }
+                    if(_cannon.Alive && m.ProcessCollision(_cannon.BoundingBox))
+                    {
+                        _cannon.Die();
                         StartHitEffects();
                     }
                 }

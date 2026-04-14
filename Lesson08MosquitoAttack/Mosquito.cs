@@ -20,7 +20,8 @@ public class Mosquito
     private enum State { Alive, Dying, Dead }
     private State _state;
 
-    private FireBall[] _fireBalls;
+    private Projectile[] _projectiles;
+
     private Random rng = new Random();
 
     internal Rectangle BoundingBox
@@ -46,11 +47,21 @@ public class Mosquito
         _gameBoundingBox = gameBoundingBox;
         _state = State.Alive;
 
-        _fireBalls = new FireBall[NumFireBalls];
+        _projectiles = new Projectile[NumFireBalls];
+
+
+        // 10 / 3 = 3
+        // 10 % 3 = 1
         for(int c = 0; c < NumFireBalls; c++)
         {
-            _fireBalls[c] = new FireBall();
-            _fireBalls[c].Initialize(50, _gameBoundingBox);
+            if(c % 3 == 0)
+                _projectiles[c] = new FireBall();
+            else if(c % 3 == 1)
+                _projectiles[c] = new SpinningStar();
+            else
+                _projectiles[c] = new CannonBall();
+
+            _projectiles[c].Initialize(50, _gameBoundingBox);
             
         }
     }
@@ -64,10 +75,8 @@ public class Mosquito
         _animationDying = 
             new SimpleAnimation(texture, texture.Width / 8, texture.Height, 8, 4);
 
-        foreach(FireBall fb in _fireBalls)
-        {
-            fb.LoadContent(content); 
-        }
+        foreach(Projectile p in _projectiles)
+            p.LoadContent(content);
 
     }
     internal void Update(GameTime gameTime)
@@ -99,8 +108,8 @@ public class Mosquito
             case(State.Dead):
                 break;
         }
-        foreach(FireBall fb in _fireBalls)
-            fb.Update(gameTime);
+        foreach(Projectile p in _projectiles)
+            p.Update(gameTime);
     }
     internal void Draw(SpriteBatch spriteBatch)
     {
@@ -115,8 +124,8 @@ public class Mosquito
             case(State.Dead):
                 break;
         }
-        foreach(FireBall fb in _fireBalls)
-            fb.Draw(spriteBatch);
+        foreach(Projectile p in _projectiles)
+            p.Draw(spriteBatch);
     }
     internal void Die()
     {
@@ -124,14 +133,27 @@ public class Mosquito
         _animationDying.Looping = false;
     }
 
+    internal bool ProcessCollision(Rectangle boundingBox)
+    {
+        foreach(Projectile p in _projectiles)
+        {
+            if(p.ProcessCollision(boundingBox))
+            {
+                //this one of my cannonBalls just hit the bounding box
+                return true;
+            }
+        }
+        return false;
+    }
+
     internal void Shoot()
     {
-        foreach(FireBall f in _fireBalls)
+        foreach(Projectile p in _projectiles)
         {
-            if(f.Launchable)
+            if(p.Launchable)
             {
-                Vector2 _fireBallPosition = new Vector2(BoundingBox.Center.X, BoundingBox.Bottom);
-                f.Launch(_fireBallPosition, new Vector2(0, 1));
+                Vector2 _projectilePosition = new Vector2(BoundingBox.Center.X, BoundingBox.Bottom);
+                p.Launch(_projectilePosition, new Vector2(0, 1));
                 return;
             }
         }
