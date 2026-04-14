@@ -1,0 +1,4 @@
+{
+  "dotnet.defaultSolution": "dmit-1514-jan-20206-workbook-cnobert.sln",
+  "omnisharp.enableMsBuildLoadProjectsOnDemand": false
+}

@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C#: Lesson08MosquitoAttack Debug",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}/Lesson08MosquitoAttack.csproj"
+    },
+    {
+      "name": "Launch Lesson08MosquitoAttack",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build Lesson08MosquitoAttack",
+      "program": "${workspaceFolder}/bin/Debug/net8.0/Lesson08MosquitoAttack.dll",
+      "cwd": "${workspaceFolder}",
+      "stopAtEntry": false,
+      "console": "internalConsole"
+    }
+  ]
+}
